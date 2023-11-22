@@ -16,8 +16,8 @@ def reset_scales():
 def weigh_bars(left_indices, right_indices):
     reset_scales()
     # Fill the left and right bowls
-    print("Left_indices: ", left_indices)
-    print("Right_indices: ", right_indices)
+    #print("Left_indices: ", left_indices)
+    #print("Right_indices: ", right_indices)
     for i, index in enumerate(left_indices):
         driver.find_element(By.ID, f"left_{i}").send_keys(str(index))
     for i, index in enumerate(right_indices):
@@ -31,7 +31,7 @@ def weigh_bars(left_indices, right_indices):
         try:
             element = driver.find_element(By.ID, "reset")
             if element.text != "?":  # Check if the text is not empty
-                print(element.text)
+                #print(element.text)
                 return element.text
         except NoSuchElementException:
             pass
@@ -55,9 +55,6 @@ def find_fake_bar():
     # Weigh the first two bars in the suspect group
     result = weigh_bars([suspect_group[0]], [suspect_group[1]])
 
-    print("group1: ", suspect_group[0])
-    print("group2: ", suspect_group[1])
-    print("result: ", result)
 
     if result in ["<", ">"]:  # If either bar is lighter, it's the fake one
         return suspect_group[0] if result == "<" else suspect_group[1]
@@ -76,32 +73,10 @@ try:
     alert = Alert(driver)
     alert_text = alert.text
     alert.accept()
-    print(f"The fake gold bar is at index: {fake_bar_index}. Alert message: {alert_text}")
+    print(f"The fake gold bar is at index: {fake_bar_index}")
 except NoAlertPresentException:
     print(f"No alert present after clicking on bar {fake_bar_index}. It may not be the fake bar.")
 
-
-# for index in range(9):  # Assuming the buttons are numbered 0 to 8
-#     # Click on the current index button
-#     try:
-#         print(f"Trying index: {index}")
-#         button = WebDriverWait(driver, 10).until(
-#             EC.element_to_be_clickable((By.ID, f"coin_{index}"))
-#         )
-#         button.click()
-#
-#         # Wait for the alert and check the result
-#         WebDriverWait(driver, 10).until(EC.alert_is_present())
-#         alert = Alert(driver)
-#         alert_text = alert.text
-#         print(alert_text)
-#         if "Yay! You find it!" == alert_text:
-#             print(f"The fake gold bar is at index: {index}. Alert message: {alert_text}")
-#             time.sleep(1)
-#         alert.accept()  # Dismiss the alert before moving on to the next button
-#         time.sleep(1)
-#     except (NoAlertPresentException, TimeoutException):
-#         print(f"No alert or incorrect alert after clicking on bar {index}. Trying the next bar.")
 
 # Quit the browser after the operation
 driver.quit()
