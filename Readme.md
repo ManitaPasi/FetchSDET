@@ -67,5 +67,5 @@ Manita Pasi - manita.pasi@gmail.com
 
 Project Link:
 ``` bash
-https://github.com/ManitaPasi/FetchSDET.git)https://github.com/ManitaPasi/FetchSDET.git
+https://github.com/ManitaPasi/FetchSDET.git
 ```
